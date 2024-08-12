@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: product-service
+server:
+  port: 19093
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:19090/eureka/
+
+management:
+  zipkin:
+    tracing:
+      endpoint: "http://localhost:9411/api/v2/spans"
+  tracing:
+    sampling:
+      probability: 1.0
+
+
+# Config 연동 방식 ---------------------------------------
+#server:
+#  port: 0  # 임시 포트, 이후 Config 서버 설정으로 덮어씌움
+#
+#spring:
+#  profiles:        # profiles active를 local에 있는 환경으로 진행 즉, config 어플리케이션의 product-service.yml파일의 값이 진행됨
+#    active: local
+#  application:
+#    name: product-service
+#  config:
+#    import: "configserver:"
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: config-server
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: refresh
+#
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:19090/eureka/
+#
+#message: "default message"
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
