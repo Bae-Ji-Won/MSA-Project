@@ -1,4 +1,4 @@
-package com.sparta.msa_exam.product;
+package com.sparta.msa_exam.product.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
