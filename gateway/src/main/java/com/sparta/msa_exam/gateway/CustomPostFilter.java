@@ -14,12 +14,18 @@ public class CustomPostFilter implements GlobalFilter, Ordered {
 
     private static final Logger logger = Logger.getLogger(CustomPostFilter.class.getName());
 
+
+
+    // 응답을 전달하기 전에 수행되는 Post필터
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, org.springframework.cloud.gateway.filter.GatewayFilterChain chain) {
+
         return chain.filter(exchange).then(Mono.fromRunnable(() -> {
             ServerHttpResponse response = exchange.getResponse();
             logger.info("Post Filter: Response status code is " + response.getStatusCode());
             // Add any custom logic here
+
+
         }));
     }
 

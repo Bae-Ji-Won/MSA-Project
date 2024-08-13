@@ -15,6 +15,7 @@ public class CustomPreFilter implements GlobalFilter, Ordered {
 
     private static final Logger logger = Logger.getLogger(CustomPreFilter.class.getName());
 
+    // 요청을 전달하기 전에 수행되는 Pre필터
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
