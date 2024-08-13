@@ -38,7 +38,8 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     // 내장 DB
-    runtimeOnly 'org.hsqldb:hsqldb'
+//    runtimeOnly 'org.hsqldb:hsqldb'
+    runtimeOnly 'com.mysql:mysql-connector-j'
     implementation 'io.jsonwebtoken:jjwt:0.12.6'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-security'
