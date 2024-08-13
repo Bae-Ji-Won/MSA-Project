@@ -41,7 +41,7 @@ public class OrderService {
     // 주문 상품 추가
     public void addProduct(Long orderId, Long productId) {
         Order order = orderRepository.findById(orderId).orElseThrow();      // 기존에 존재하는 주문 entity를 가져옴
-        
+
         productClient.getProduct().stream()
                 .filter(i -> i.productId().equals(productId)).findAny()     // product 모듈의 모든 데이터 찾기에서 productId값과 같은 데이터만 추출
                 .ifPresent(p -> order.addProduct(OrderMap.fromEntity(order,productId)));        // 해당 데이터를 Order Entity에 저장
