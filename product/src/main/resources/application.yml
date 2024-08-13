@@ -1,6 +1,17 @@
 spring:
   application:
     name: product-service
+
+  datasource:
+    url: ${DB_CONNECTION_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+
 server:
   port: 19093
 eureka:
