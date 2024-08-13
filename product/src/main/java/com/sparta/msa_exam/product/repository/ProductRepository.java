@@ -1,6 +1,7 @@
-package com.sparta.msa_exam.product.products;
+package com.sparta.msa_exam.product.repository;
 
-import com.sparta.msa_exam.product.core.Product;
+
+import com.sparta.msa_exam.product.domain.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
