@@ -1,6 +1,18 @@
 spring:
   application:
     name: order-service
+
+  datasource:
+    url: ${DB_CONNECTION_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+
+
 server:
   port: 19092
 eureka:
