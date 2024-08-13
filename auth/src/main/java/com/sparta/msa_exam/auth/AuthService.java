@@ -1,5 +1,7 @@
 package com.sparta.msa_exam.auth;
 
+import com.sparta.msa_exam.auth.Error.CustomException;
+import com.sparta.msa_exam.auth.Error.ErrorCode;
 import com.sparta.msa_exam.auth.core.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -24,13 +26,11 @@ public class AuthService {
     private final SecretKey secretKey;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    // 토큰 만료시간
+    private final long TOKEN_TIME = 60 * 60 * 1000L; // 60분
 
-    /**
-     * AuthService 생성자.
-     * Base64 URL 인코딩된 비밀 키를 디코딩하여 HMAC-SHA 알고리즘에 적합한 SecretKey 객체를 생성합니다.
-     *
-     * @param secretKey Base64 URL 인코딩된 비밀 키
-     */
+
+
     public AuthService(@Value("${service.jwt.secret-key}") String secretKey,
                        UserRepository userRepository,
                        PasswordEncoder passwordEncoder) {
@@ -39,44 +39,33 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    /**
-     * 사용자 ID를 받아 JWT 액세스 토큰을 생성합니다.
-     *
-     * @param userId 사용자 ID
-     * @return 생성된 JWT 액세스 토큰
-     */
+
+    // 토큰 생성
     public String createAccessToken(String userId, String role) {
+        Date date = new Date();
+
         return Jwts.builder()
                 .claim("user_id", userId)
                 .claim("role", role)
                 .issuer(issuer)
+                .setExpiration(new Date(date.getTime() + TOKEN_TIME)) // 만료 시간
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + accessExpiration))
                 .signWith(secretKey, io.jsonwebtoken.SignatureAlgorithm.HS512)
                 .compact();
     }
 
-    /**
-     * 사용자 등록
-     *
-     * @param user 사용자 정보
-     * @return 저장된 사용자
-     */
+    // 사용자 저장
     public User signUp(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
-    /**
-     * 사용자 인증
-     *
-     * @param userId 사용자 ID
-     * @param password 비밀번호
-     * @return JWT 액세스 토큰
-     */
+    
+    // 사용자 인증
     public String signIn(String userId, String password) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID or password"));
+                .orElseThrow(() -> new CustomException(ErrorCode.INVALID_AUTH_TOKEN));
 
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new IllegalArgumentException("Invalid user ID or password");
