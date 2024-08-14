@@ -9,6 +9,7 @@ import com.sparta.msa_exam.order.core.dto.OrderResponse;
 import com.sparta.msa_exam.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,7 @@ public class OrderService {
 
     // 주문 조회
     @Transactional(readOnly = true)
+    @Cacheable(cacheNames = "order_cache")
     public OrderResponse getOrder(Long orderId) {
         return orderRepository.findById(orderId)
                 .map(OrderResponse::fromEntity)
