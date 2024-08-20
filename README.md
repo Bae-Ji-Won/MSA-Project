@@ -124,7 +124,7 @@
 <br />
 
 ### 5️⃣ 분산추적 구현해보기
-#### &nbsp;&nbsp; 1. 주문 서비스 와 상품 서비스 에 Zipkin 을 연동하고, 호출시 Zipkin 대시보드에 Duration 이 측정 되는지 확인해보세요.
+#### &nbsp;&nbsp; 1. 주문 서비스 와 상품 서비스 에 Zipkin 을 연동하고, 호출시 Zipkin 대시보드에 Duration 이 측정 되는지 확인해보세요 .
 
 <br />
 
